@@ -1,0 +1,304 @@
+$def with(data,curPage,pageCnt,preduct)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>模型训练页</title>
+	<link rel="stylesheet" href="../static/cdn/bootstrap.min.css">
+	<script src="../static/cdn/jquery-2.1.1.min.js"></script>
+	<script src="../static/cdn/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" >&nbsp;糖尿病预测</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav" style="font-size:20px">
+                <li ><a href="/index.html">主页</a></li>
+                <li ><a href="/tnb.html">查询</a></li>
+                <li  ><a href="/pred.html">预测</a></li>
+                <li  class="active" ><a href="/dashboard.html">训练</a></li>
+                <li  ><a href="/screen.html">大屏</a></li>
+                     <li  ><a href="/log.html">历史日志</a></li>
+                 <li><a href="/sug.html">建议</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+<div style="height:50px"></div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5" >
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addModal">新增数据</button>
+        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#fileModal">批量导入</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                          <th>id</th>
+                    <th>Pregnancies</th>
+                    <th>Glucose</th>
+                    <th>BloodPressure</th>
+                    <th>SkinThickness</th>
+                    <th>Insulin</th>
+                    <th>BMI</th>
+                    <th>DiabetesPedigreeFunction</th>
+                    <th>Age</th>
+                    <th>Outcome</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                    $for t in data:
+                    <tr>
+                        <td>$t[0]</td>
+                        <td>$t[1]</td>
+                        <td>$t[2]</td>
+                        <td>$t[3]</td>
+                        <td>$t[4]</td>
+                        <td>$t[5]</td>
+                        <td>$t[6]</td>
+                        <td>$t[7]</td>
+                        <td>$t[8]</td>
+                        <td>$t[9]</td>
+                        <td>
+                            <button class="btn btn-danger" data-toggle="modal"
+                            onclick="updateId.value='$t[0]';updatePREGNANCIES.value='$t[1]';updateGLUCOSE.value='$t[2]';updateBLOODPRESSURE.value='$t[3]';updateSKINTHICKNESS.value='$t[4]';updateINSULIN.value='$t[5]';updateBMI.value='$t[6]';updateDIABETESPEDIGREEFUNCTION.value='$t[7]';updateAGE.value='$t[8]';updateOUTCOME.value='$t[9]';" data-target="#updateModal">修改</button>
+                            <button class="btn btn-warning" data-toggle="modal" onclick="deleteId.value='$t[0]'"data-target="#deleteModal">删除</button>
+                        </td>
+                    </tr>
+            </tbody>
+            <tfoot>
+               <!-- 分页组件 -->
+                <tr>
+                    <td colspan="10">
+                        <ul class="pagination">
+                            $if curPage > 1:
+                                <li ><a href="?page=$(curPage-1)">上一页</a></li>
+                                <li ><a href="?page=1">1</a></li>
+                                <li ><a href="#">...</a></li>
+
+
+                            $for i in range(max(1,curPage-4),curPage):
+                                <li><a href="?page=$i" >$i</a></li>
+
+                            <li><a href="#" style="color:#ff0000" >$curPage</a></li>
+
+                            $for i in range(curPage+1,min(pageCnt,curPage+4)):
+                                <li><a href="?page=$i" >$i</a></li>
+
+                             $if curPage < pageCnt:
+                                <li ><a href="#">...</a></li>
+                                <li ><a href="?page=$pageCnt">$pageCnt</a></li>
+                                <li ><a href="?page=$(curPage+1)">下一页</a></li>
+
+
+
+
+
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+   <div class="col-md-5" >
+       <form method="post" action="" class="form-inline">
+            <label for="selectMethod">模型：</label>
+            <select class="form-control" name="model">
+                <option value="lr">随机森林</option>
+                <option value="svr">决策树</option>
+                <option value="lasso">神经网络</option>
+                <option value="ridge">逻辑回归</option>
+            </select>
+            <button type="submit" class="btn btn-info btn-lg" name="train">重新训练</button>
+        </form>
+        <div style="height:50px"></div>
+         <div class="panel panel-danger">
+            <div class="panel-heading">
+                模型训练
+            </div>
+            <div class="panel-body">
+                <div style="height:50px"></div>
+                <table  class="table table-striped">
+                    <tr>
+                        <td>预测方法：</td>
+                        <td>$preduct[6]</td>
+                    </tr>
+                    <tr>
+                        <td>平均绝对误差(MAE):</td>
+                        <td>$preduct[0]</td>
+                    </tr>
+                    <tr>
+                        <td>均方误差(MSE):</td>
+                        <td>$preduct[1]</td>
+                    </tr>
+                    <tr>
+                        <td>平方根均方误差(RMSE):</td>
+                        <td>$preduct[2]</td>
+                    </tr>
+                    <tr>
+                        <td>决定系数(R-squared):</td>
+                        <td>$preduct[3]</td>
+                    </tr>
+                    <tr>
+                        <td>数据集大小：</td>
+                        <td>$preduct[4]条</td>
+                    </tr>
+                    <tr>
+                        <td>训练时间：</td>
+                        <td>$preduct[5]秒</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">新增数据</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Pregnancies</h4>
+                    <textarea class="form-control" row="1" name="addPREGNANCIES"></textarea>
+                    <h4>Glucose</h4>
+                    <textarea class="form-control" row="1" name="addGLUCOSE"></textarea>
+                    <h4>BloodPressure</h4>
+                    <textarea class="form-control" row="1" name="addBLOODPRESSURE"></textarea>
+                    <h4>SkinThickness</h4>
+                    <textarea class="form-control" row="1" name="addSKINTHICKNESS"></textarea>
+                    <h4>Insulin</h4>
+                    <textarea class="form-control" row="1" name="addINSULIN"></textarea>
+                    <h4>BMI</h4>
+                    <textarea class="form-control" row="1" name="addBMI"></textarea>
+                    <h4>DiabetesPedigreeFunction</h4>
+                    <textarea class="form-control" row="1" name="addDIABETESPEDIGREEFUNCTION"></textarea>
+                    <h4>Age</h4>
+                    <textarea class="form-control" row="1" name="addAGE"></textarea>
+                    <h4>Outcome</h4>
+                    <textarea class="form-control" row="1" name="addOUTCOME"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" name="addBtn">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+<form action="" method="post" enctype="multipart/form-data">
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改鲍鱼</h4>
+                </div>
+                <div class="modal-body">
+                    <h6>编号</h6>
+                    <input type="text" class="form-control" name="updateId" id="updateId" readonly/>
+                    <h6>Pregnancies</h6>
+                    <textarea class="form-control"  name="updatePREGNANCIES" id="updatePREGNANCIES"></textarea>
+                    <h6>Glucose</h6>
+                    <textarea class="form-control"  name="updateGLUCOSE" id="updateGLUCOSE"></textarea>
+                    <h6>BloodPressure</h6>
+                    <textarea class="form-control"  name="updateBLOODPRESSURE" id="updateBLOODPRESSURE"></textarea>
+                    <h6>SkinThickness</h6>
+                    <textarea class="form-control"  name="updateSKINTHICKNESS" id="updateSKINTHICKNESS"></textarea>
+                    <h6>Insulin</h6>
+                    <textarea class="form-control"  name="updateINSULIN" id="updateINSULIN"></textarea>
+                    <h6>BMI</h6>
+                    <textarea class="form-control"  name="updateBMI" id="updateBMI"></textarea>
+                    <h6>DiabetesPedigreeFunction</h6>
+                    <textarea class="form-control"  name="updateDIABETESPEDIGREEFUNCTION" id="updateDIABETESPEDIGREEFUNCTION"></textarea>
+                    <h6>Age</h6>
+                    <textarea class="form-control"  name="updateAGE" id="updateAGE"></textarea>
+                    <h6>Outcome</h6>
+                    <textarea class="form-control"  name="updateOUTCOME" id="updateOUTCOME"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" name="updateBtn">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+<form action="" method="post" enctype="multipart/form-data">
+    <!-- 删除模态框（Modal） -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">删除鲍鱼</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>确认删除？</h3>
+                    <input type="text" class="form-control"  style="display:none"
+                    name="deleteId" id="deleteId"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary" name="deleteBtn">删除</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+<form action="" method="post" enctype="multipart/form-data">
+    <!-- 批量导入模态框（Modal） -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">批量导入</h4>
+                </div>
+                <div class="modal-body">
+                    <h3></h3>
+                    <input type="file" class="form-control" name="myFile" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" name="fileBtn">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+<form action="" method="post" enctype="multipart/form-data">
+        <!-- 删除模态框（Modal） -->
+    <div class="modal fade" id="exit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">退出系统</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>退出确认</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary" name="exit">确认</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+</form>
+</body>
+</html>

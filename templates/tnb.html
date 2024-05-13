@@ -1,0 +1,134 @@
+$def with(data,age)
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>糖尿病预测</title>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    	<link rel="stylesheet" href="../static/cdn/bootstrap.min.css">
+	<script src="../static/cdn/jquery.min.js"></script>
+	<script src="../static/cdn/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#" >&nbsp;糖尿病预测</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav" style="font-size:20px">
+            <li ><a href="/index.html">主页</a></li>
+            <li class="active" ><a href="/tnb.html">查询</a></li>
+            <li  ><a href="/pred.html">预测</a></li>  
+            <li  ><a href="/dashboard.html">训练</a></li>  
+            <li  ><a href="/screen.html">大屏</a></li>
+                 <li  ><a href="/log.html">历史日志</a></li>
+            <li><a href="/sug.html">建议</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div style="height:150px"></div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="alert alert-success" style="font-size: 30px;width: 90%;height:100px">
+                <span class="glyphicon glyphicon-search">患者信息查询</span></div>
+        </div>
+        <div style="height:50px"></div>
+        <div class="row">
+            <img src="../static/tnbfruit.png" style="width:90%" class="img-rounded">
+        </div>
+
+    </div>
+    <div class="col-md-4">
+         <!-- 1.表单套个form -->
+        <form action = "" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="inputId" style="font-size: 25px;height:50px" placeholder="请输入患者编号1-3536">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-danger" style="font-size: 25px;height:50px">查询</button>
+            </div>
+        </div>
+        </form>
+        <div style="height:100px"></div>
+        <div class="row">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="font-size:20px">患者信息查询</h3>
+                </div>
+                <div class="panel-body">
+                    <div style="height:20px"></div>
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-3">
+                        <h1 style="font-size:30px">患者 $data[0][0]号</h1>
+                        
+                      </div>
+                      <div class="col-md-5">
+                        <h1><span class="label label-info" style="font-size:30px">是否患病：$data[0][9] </span></h1>
+                      </div>
+                    </div>
+                    <div style="height:50px"></div>
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-10">
+                    
+                        <table class="table table-striped" style="font-size:20px">
+                            <thead>
+                              <tr>
+                                <th style="width:30%">指标</th>
+                                <th style="width:20%">结果</th>
+                                <th style="width:30%">指标</th>
+                                <th style="width:20%">结果</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Pregnancies</td>
+                                <td style="color:#ff0000">$data[0][1]</td>
+                                <td>Insulin</td>
+                                <td  style="color:#ff0000">$data[0][5]</td>
+                              </tr>
+                              <tr>
+                                <td>Glucose</td>
+                                <td  style="color:#ff0000">$data[0][2]</td>
+                                <td>BMI</td>
+                                <td  style="color:#ff0000">$data[0][6]</td>
+                              </tr>
+                              <tr>
+                                <td>BloodPressure</td>
+                                <td  style="color:#ff0000">$data[0][3]</td>
+                                <td>DiabetesPedigreeFunction</td>
+                                <td  style="color:#ff0000">$data[0][7]</td>
+                              </tr>
+                              <tr>
+                                <td>SkinThickness</td>
+                                <td style="color:#ff0000">$data[0][4]</td>
+                                <td>Outcome</td>
+                                <td  style="color:#ff0000">$data[0][8]</td>
+                              </tr>
+                                                           
+                            </tbody>
+                          </table>
+                          <div class="alert alert-danger">
+                            <h1 style="color:#ff0000">预测是否患病：$:age[0]</h1>
+                          </div>
+                          
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+</div>
+
+</body>
+</html>

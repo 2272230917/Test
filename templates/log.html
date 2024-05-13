@@ -1,0 +1,90 @@
+$def with(dataOP,dataTR)
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>糖尿病预测</title>
+<!--	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<!--	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
+<!--	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    	<link rel="stylesheet" href="../static/cdn/bootstrap.min.css">
+	<script src="../static/cdn/jquery.min.js"></script>
+	<script src="../static/cdn/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#" >&nbsp;糖尿病预测</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav" style="font-size:20px">
+            <li ><a href="/index.html">主页</a></li>
+            <li ><a href="/tnb.html">查询</a></li>
+            <li  ><a href="/pred.html">预测</a></li>
+            <li  ><a href="/dashboard.html">训练</a></li>
+            <li  ><a href="/screen.html">大屏</a></li>
+            <li  class="active" ><a href="/log.html">历史日志</a></li>
+            <li><a href="/sug.html">建议</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div class="row" style="height:200px"></div>
+<div class="row">
+    <div class="col-md-1"></div>
+        <div class="col-md-5">
+   <table class="table table-striped">
+        <caption style="font-weight: bold;color:black;font-size: 250%;">用户数据操作日志</caption>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>角色</th>
+                    <th>日期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                    $for t in dataOP:
+                    <tr>
+                        <td>$t[0]</td>
+                        <td>$t[1]</td>
+                        <td>$t[2]</td>
+                        <td>$t[3]</td>
+                        <td>$t[4]</td>
+                    </tr>
+            </tbody>
+   </table>
+    </div>
+
+        <div class="col-md-5">
+   <table class="table table-striped">
+         <caption style="font-weight: bold; color: black;font-size: 250%;">用户模型训练日志</caption>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>角色</th>
+                    <th>日期</th>
+                    <th>训练模型</th>
+                    <th>训练时长</th>
+                </tr>
+            </thead>
+            <tbody>
+                    $for t in dataTR:
+                    <tr>
+                        <td>$t[0]</td>
+                        <td>$t[1]</td>
+                        <td>$t[2]</td>
+                        <td>$t[3]</td>
+                        <td>$t[4]</td>
+                        <td>$t[5]</td>
+                    </tr>
+            </tbody>
+   </table>
+    </div>
+       <div class="col-md-1"></div>
+    </div>
+</body>
+</html>

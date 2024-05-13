@@ -1,0 +1,119 @@
+$def with(data,fname,x,y)
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>糖尿病预测</title>
+	<link rel="stylesheet" href="../static/cdn/bootstrap.min.css">
+	<script src="../static/cdn/jquery-2.1.1.min.js"></script>
+	<script src="../static/cdn/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.js"></script>
+
+    	<link rel="stylesheet" href="../static/cdn/bootstrap.min.css">
+	<script src="../static/cdn/jquery.min.js"></script>
+	<script src="../static/cdn/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#" >&nbsp;糖尿病预测</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav" style="font-size:20px">
+            <li class="active"><a href="/index.html">主页</a></li>
+            <li ><a href="/tnb.html">查询</a></li>
+            <li  ><a href="/pred.html">预测</a></li>  
+            <li  ><a href="/dashboard.html">训练</a></li>  
+            <li  ><a href="/screen.html">大屏</a></li>
+            <li  ><a href="/log.html">历史日志</a></li>
+            <li><a href="/sug.html">建议</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+
+<div style="height:150px"></div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="row">
+        <div style="height:400px;width:100%" id = "graph"></div>
+      </div>
+      <div class="row">
+        <img src="../static/tnb.jpg" style="width:100%" class="img-rounded">
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <div class="row text-right">
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/pred.html'" style="font-size: 30px;" >预测是否患有糖尿病</button>
+      </div>
+      <div style="height:30px"></div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pregnancies</th>
+            <th>Glucose</th>
+            <th>BloodPressure</th>
+            <th>SkinThickness</th>
+            <th>Insulin</th>
+            <th>BMI</th>
+            <th>DiabetesPedigreeFunction</th>
+            <th>Outcome</th>
+            <th>Outcome</th>
+            <th>Search</th>
+          </tr>
+        </thead>
+        <tbody>
+          $for t in data:
+            <tr>
+              <td>$t[0]</td>
+              <td>$t[1]</td>
+              <td>$t[2]</td>
+              <td>$t[3]</td>
+              <td>$t[4]</td>
+              <td>$t[5]</td>
+              <td>$t[6]</td>
+              <td>$t[7]</td>
+              <td>$t[8]</td>
+              <td><button type="button" class="btn btn-danger" onclick="window.location.href='/tnb.html?id=$t[0]'">查询</button></td>
+            </tr>
+        </tbody>
+      </table>
+
+    </div>
+</div>
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.getElementById('graph'));
+
+  // 指定图表的配置项和数据
+  var option = {
+    title: {
+      text: '糖尿病占比(1是0否)'
+    },
+    tooltip: {},
+    legend: {
+      data: ['糖尿病']
+    },
+    xAxis: {
+      data: $:x
+    },
+    yAxis: {},
+    series: [
+      {
+        name: '',
+        type: 'bar',
+        data: $:y
+      }
+    ]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option);
+</script>
+
+
+</body>
+</html>

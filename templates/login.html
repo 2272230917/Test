@@ -1,0 +1,79 @@
+$def with(notice)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>登录页面</title>
+	<link rel="stylesheet" href="../static/cdn/bootstrap.min.css">
+	<script src="../static/cdn/jquery.min.js"></script>
+	<script src="../static/cdn/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- <form action = "" method="post" enctype="multipart/form-data"></form> -->
+<h1 style="height:200px"></h1>
+<div class="container">
+	<div class="col-md-7">
+		<div id="myCarousel" class="carousel slide">
+			<!-- 轮播（Carousel）指标 -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<!-- 轮播（Carousel）项目 -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img decoding="async" src="../static/img/welcome.jpg" alt="First slide" >
+                    <div class="carousel-caption">欢迎使用</div>
+				</div>
+				<div class="item">
+					<img decoding="async" src="../static/img/2023.jpg" alt="Second slide" >
+                    <div class="carousel-caption">欢迎使用</div>
+				</div>
+				<div class="item">
+					<img decoding="async" src="../static/img/third.jpg" alt="Third slide"><!--https://www.runoob.com/wp-content/uploads/2014/07/slide3.png-->
+                    <div class="carousel-caption">欢迎使用</div>
+				</div>
+			</div>
+			<!-- 轮播（Carousel）导航 -->
+			<a class="carousel-control left" href="#myCarousel"
+			   data-slide="prev"> <span _ngcontent-c3="" aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></a>
+			<a class="carousel-control right" href="#myCarousel"
+			   data-slide="next">&rsaquo;</a>
+		</div>
+	</div>
+    <div class="col-md-1"></div>
+	<div class="col-md-4">
+		<form action="" method="post" >
+			<h2>用户登录</h2>
+			<h1></h1>
+			<input type="text" class="form-control" placeholder="请输入用户名" required autofocus name="username"/>
+			<div style="height:10px;clear: both;display: block"></div>
+			<input type="password" class="form-control" placeholder="请输入密码" required name="password"/>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="remember-me"/>
+					记录登录状态
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+
+			 <a href="/register" class="btn btn-lg btn-primary btn-block">注册</a>
+			<h1></h1>
+            $if notice:
+                <h4 class="text-center" style="color:#ff0000"><b>$notice</b></h4>
+		</form>
+
+	</div>
+</div>
+<h1>&nbsp;</h1>
+<h1>&nbsp;</h1>
+<h1>&nbsp;</h1>
+<div class="row">
+	<div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+		<p><strong>@ 2022&nbsp;上海第二工业大学</strong></p>
+		<p><small>powered by Rui Sun, hire contact please mail</small></p>
+	</div>
+</div>
+</body>
+</html>
